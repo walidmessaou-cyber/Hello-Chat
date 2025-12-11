@@ -412,33 +412,20 @@
         }
 
         // Load initial message
-        async function loadInitialMessage() {
-            showTyping();
+        function loadInitialMessage() {
+            const greeting = `Hi, I'm Lola. I'm going to write your Future Journal — the diary of the version of you who actually did the thing.
+
+Not some generic story. Your story. Your struggles, your comebacks, your life.
+
+By the end, you won't just read about change — you'll recognize yourself in it.
+
+To make it real, I need to ask you some questions. About your goal, your life, your chaos. The more you give me, the more this thing comes alive.
+
+This is going to be good.
+
+Ready?`;
             
-            try {
-                const response = await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'sendMessage',
-                        sessionId: sessionId,
-                        chatInput: ''
-                    })
-                });
-                
-                const data = await response.json();
-                hideTyping();
-                
-                if (data.output) {
-                    addMessage(data.output);
-                }
-            } catch (error) {
-                console.error('Error loading initial message:', error);
-                hideTyping();
-                addMessage("Hi! I'm Lola. Ready to write your Future Journal?");
-            }
+            addMessage(greeting);
         }
 
         // Event listeners
